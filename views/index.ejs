@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("templates/header") %>
+</head>
+<body>
+    <div class="container">
+        <header>
+            
+        </header>
+        <div class="card">
+            <div class="card-header">
+                <h1>Lista de productos</h1>
+            </div>
+            <div class="card-body">
+                <% if (data.length > 0) { %>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Marca</th>
+                                <th>Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% data.forEach(function(item) { %>
+                                <tr>
+                                    <td><%= item.id %></td>
+                                    <td><%= item.marca %></td>
+                                    <td>$<%= item.valor %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>No hay datos</p>
+                <% } %>
+            </div>
+            <div class="card-footer">
+               <a href="/test/new-pc" class="btn btn-primary">Nuevo Producto</a>
+                pie de card
+            </div>
+        </div>
+        <footer>
+            <%- include("templates/footer") %>
+        </footer>
+    </div>
+    <p>Se recibieron <%= data.length %> datos</p>
+</body>
+</html>

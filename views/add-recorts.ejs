@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("templates/header") %>
+</head>
+<body>
+    <div class="container">
+        <header>
+           
+        </header>
+        <div class="card">
+            <div class="card-header">
+                <h1>Nuevo Producto</h1>
+            </div>
+            <div class="card-body">
+                <form action="/test/new" method="POST">
+                    <label for="id">Id</label>
+                    <input type="text" class="form-control" name="id" id="id">
+                    <label for="marca">Marca</label>
+                    <input type="text" class="form-control" name="marca" id="marca">
+                    <label for="valor">Valor</label>
+                    <input type="number" class="form-control" name="valor" id="valor">
+
+                    <button type="submit" class="btn btn-success">Agregar A La Lista</button>
+                </form>
+            </div>
+            <div class="card-footer">
+                pie de card
+            </div>
+        </div>
+        <footer>
+            <%- include("templates/footer") %>
+        </footer>
+    </div>
+  
+</body>
+</html>
