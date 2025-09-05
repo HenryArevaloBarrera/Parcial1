@@ -17,7 +17,6 @@ function saveTowns(data) {
   fs.writeFileSync(townsPath, JSON.stringify(data, null, 2));
 }
 
-// Página principal
 router.get("/", (req, res) => {
   res.render("index.ejs", {
     title: "Listado de Datos",
@@ -26,7 +25,6 @@ router.get("/", (req, res) => {
   });
 });
 
-// Formulario para nuevo municipio
 router.get("/towns/new", (req, res) => {
   res.render("add-town.ejs", {
     title: "Nuevo Municipio",
@@ -35,7 +33,6 @@ router.get("/towns/new", (req, res) => {
   });
 });
 
-// Guardar nuevo municipio con verificación
 router.post("/towns/new", (req, res) => {
   const { code, name, department } = req.body;
 
@@ -44,10 +41,16 @@ router.post("/towns/new", (req, res) => {
     return res.render("add-town.ejs", {
       title: "Nuevo Municipio",
       departments,
-      message: "⚠️ El código de municipio ya existe. Ingrese otro."
+      message: "El código de municipio ya existe. Ingrese otro."
     });
   }
 
+  router.get("/departments/new", (req, res) => {
+  res.render("add-department.ejs", {
+    title: "Nuevo Departamento",
+    message: null
+  });
+});
   const newTown = { code, department, name };
   towns.push(newTown);
   saveTowns(towns);
@@ -55,12 +58,11 @@ router.post("/towns/new", (req, res) => {
   res.render("add-town.ejs", {
     title: "Nuevo Municipio",
     departments,
-    message: "✅ Municipio agregado correctamente."
+    message: "Municipio agregado correctamente."
   });
 });
 
-// Guardar nuevo departamento con verificación
-router.post("/departments/new", (req, res) => {
+router.post("/test/departments/new", (req, res) => {
   const { code, name } = req.body;
 
   const exists = departments.some(d => d.code === code);
@@ -69,7 +71,7 @@ router.post("/departments/new", (req, res) => {
       title: "Listado de Datos",
       departments,
       towns,
-      message: "⚠️ El código de departamento ya existe. Ingrese otro."
+      message: "El código de departamento ya existe. Ingrese otro."
     });
   }
 
@@ -81,18 +83,16 @@ router.post("/departments/new", (req, res) => {
     title: "Listado de Datos",
     departments,
     towns,
-    message: "✅ Departamento agregado correctamente."
+    message: "Departamento agregado correctamente."
   });
 });
 
-// Municipios por departamento
 router.get("/towns/:depCode", (req, res) => {
   const depCode = req.params.depCode;
   const filtered = towns.filter(t => t.department === depCode);
   res.json(filtered);
 });
 
-// Filtro de municipios
 router.get("/filter", (req, res) => {
   const depCode = req.query.depCode;
   let filteredTowns = towns;
