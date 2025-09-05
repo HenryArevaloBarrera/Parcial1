@@ -1,9 +1,32 @@
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%=title%> </title>
-    
-    <link rel="stylesheet" href="/css/bootstrap.min.css" >
-    <link rel="stylesheet" href="/js/bootstrap.min.js" >
-    
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script src="/js/bootstrap.min.js"></script>
 </head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/test">MunicipiosApp</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="btn btn-success me-2" href="/test/towns/new"> Agregar Municipio</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-primary me-2" href="/test/filter"> Filtro de Municipios</a>
+          </li>
+          <li class="nav-item">
+            <a class="btn btn-secondary me-2" href="/test">inicio</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</body>

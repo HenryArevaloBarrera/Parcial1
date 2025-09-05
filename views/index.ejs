@@ -1,28 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <%- include("templates/header") %>
-    <style>
-        .table-container {
-            max-height: 300px; /* altura máxima visible */
-            overflow-y: auto;  /* scroll vertical */
-        }
-    </style>
+        <style>
+            .table-container {
+                max-height: 300px;
+                
+                overflow-y: auto;
+              
+            }
+        </style>
 </head>
+
 <body>
     <div class="container">
         <header class="my-4 d-flex justify-content-between align-items-center">
             <h1 class="text-center">Departamentos y Municipios</h1>
-            <a href="/test/towns/new" class="btn btn-success">➕ Agregar Municipio</a>
+          
         </header>
 
-        <!-- Tabla de Departamentos -->
+        
+        
+        <div class="card my-3">
+            <div class="card-header bg-success text-white">
+                <h2>Municipios</h2>
+            
+            </div>
+            <div class="card-body table-container">
+                <% if (towns.length> 0) { %>
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Código Municipio</th>
+                                <th>Nombre Municipio</th>
+                                <th>C.D.</th>
+                                <th>Nombre Departamento</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% towns.forEach(function(town) { const depCode=town.department; const
+                                dep=departments.find(d=> d.code === depCode);
+                                %>
+                                <tr>
+                                    <td>
+                                        <%= town.code %>
+                                    </td>
+                                    <td>
+                                        <%= town.name %>
+                                    </td>
+                                    <td>
+                                        <%= dep ? dep.code : "??" %>
+                                    </td>
+                                    <td>
+                                        <%= dep ? dep.name : "No asignado" %>
+                                    </td>
+                                    <td>
+                                        <a href="/test/towns/edit/<%= town.code %>" class="btn btn-warning btn-sm">
+                                            Actualizar</a>
+                                        <form action="/test/towns/delete/<%= town.code %>" method="POST"
+                                            style="display:inline;"
+                                            onsubmit="return confirm('¿Seguro que deseas borrar el municipio <%= town.name %>?');">
+                                            <button type="submit" class="btn btn-danger btn-sm">Borrar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                    <% } else { %>
+                        <p>No hay municipios registrados</p>
+                        <% } %>
+            </div>
+        </div>
+
+        
         <div class="card my-3">
             <div class="card-header bg-primary text-white">
                 <h2>Departamentos</h2>
             </div>
             <div class="card-body table-container">
-                <% if (departments.length > 0) { %>
+                <% if (departments.length> 0) { %>
                     <table class="table table-bordered table-hover">
                         <thead class="table-dark">
                             <tr>
@@ -32,56 +91,26 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% departments.forEach(function(dep) { 
-                                const totalMunicipios = towns.filter(t => t.code.substring(0,2) === dep.code).length;
-                            %>
+                            <% departments.forEach(function(dep) { const totalMunicipios=towns.filter(t=>
+                                t.code.substring(0,2) === dep.code).length;
+                                %>
                                 <tr>
-                                    <td><%= dep.code %></td>
-                                    <td><%= dep.name %></td>
-                                    <td><%= totalMunicipios %></td>
+                                    <td>
+                                        <%= dep.code %>
+                                    </td>
+                                    <td>
+                                        <%= dep.name %>
+                                    </td>
+                                    <td>
+                                        <%= totalMunicipios %>
+                                    </td>
                                 </tr>
-                            <% }) %>
+                                <% }) %>
                         </tbody>
                     </table>
-                <% } else { %>
-                    <p>No hay departamentos registrados</p>
-                <% } %>
-            </div>
-        </div>
-
-        <!-- Tabla de Municipios -->
-        <div class="card my-3">
-            <div class="card-header bg-success text-white">
-                <h2>Municipios</h2>
-            </div>
-            <div class="card-body table-container">
-                <% if (towns.length > 0) { %>
-                    <table class="table table-bordered table-hover">
-                        <thead class="table-dark">
-                            <tr>
-                                <th>Código Municipio</th>
-                                <th>Nombre Municipio</th>
-                                <th>C.D.</th>
-                                <th>Nombre Departamento</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% towns.forEach(function(town) { 
-                                const depCode = town.code.substring(0,2);
-                                const dep = departments.find(d => d.code === depCode);
-                            %>
-                                <tr>
-                                    <td><%= town.code %></td>
-                                    <td><%= town.name %></td>
-                                    <td><%= dep ? dep.code : "??" %></td>
-                                    <td><%= dep ? dep.name : "No asignado" %></td>
-                                </tr>
-                            <% }) %>
-                        </tbody>
-                    </table>
-                <% } else { %>
-                    <p>No hay municipios registrados</p>
-                <% } %>
+                    <% } else { %>
+                        <p>No hay departamentos registrados</p>
+                        <% } %>
             </div>
         </div>
 
@@ -90,4 +119,5 @@
         </footer>
     </div>
 </body>
+
 </html>

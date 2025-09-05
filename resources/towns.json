@@ -2,7 +2,7 @@
   {
     "code": "05001",
     "department": "05",
-    "name": "Medellín"
+    "name": "Medellín2"
   },
   {
     "code": "05002",
@@ -5583,5 +5583,20 @@
     "code": "123",
     "department": "05",
     "name": "Prueba"
+  },
+  {
+    "code": "1233",
+    "department": "25",
+    "name": "Prueba2"
+  },
+  {
+    "code": "12342",
+    "department": "08",
+    "name": "Prueba3"
+  },
+  {
+    "code": "12342",
+    "department": "08",
+    "name": "Prueba3"
   }
 ]

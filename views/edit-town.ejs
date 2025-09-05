@@ -6,39 +6,38 @@
 <body>
     <div class="container">
         <div class="card mt-4">
-            <div class="card-header bg-primary text-white">
-                <h1>Agregar Nuevo Municipio</h1>
+            <div class="card-header bg-warning text-dark">
+                <h1>Editar Municipio</h1>
             </div>
             <div class="card-body">
-
-                <% if (message) { %>
-                    <div class="alert alert-info"><%= message %></div>
-                <% } %>
-
-                <form action="/test/towns/new" method="POST">
+                <form action="/test/towns/edit/<%= town.code %>" method="POST">
                     <div class="mb-3">
                         <label for="code" class="form-label">Código Municipio</label>
-                        <input type="text" class="form-control" name="code" id="code" required>
+                        <input type="text" class="form-control" name="code" id="code" 
+                               value="<%= town.code %>" readonly>
                     </div>
                     
                     <div class="mb-3">
                         <label for="name" class="form-label">Nombre Municipio</label>
-                        <input type="text" class="form-control" name="name" id="name" required>
+                        <input type="text" class="form-control" name="name" id="name" 
+                               value="<%= town.name %>" required>
                     </div>
                     
                     <div class="mb-3">
                         <label for="department" class="form-label">Departamento</label>
                         <select name="department" id="department" class="form-select" required>
-                            <option value="">Seleccione un departamento</option>
                             <% departments.forEach(dep => { %>
-                                <option value="<%= dep.code %>"><%= dep.name %></option>
+                                <option value="<%= dep.code %>" <%= town.department === dep.code ? "selected" : "" %>>
+                                    <%= dep.name %>
+                                </option>
                             <% }) %>
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-success">Guardar Municipio</button>
+                    <button type="submit" class="btn btn-success">Actualizar Municipio</button>
                     <a href="/test" class="btn btn-secondary">Cancelar</a>
-                    <a href="/test" class="btn btn-secondary">Volver</a>
+                    <a href="/test" class="btn btn-warning">Volver</a>
+
                 </form>
             </div>
         </div>

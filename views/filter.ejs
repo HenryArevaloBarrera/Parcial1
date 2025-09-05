@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include("templates/header") %>
+    <style>
+        .table-container {
+            max-height: 300px;  /* altura máxima visible */
+            overflow-y: auto;   /* scroll vertical */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="my-4">
+            <h1>Filtro de Municipios</h1>
+        </header>
+
+        <form action="/test/filter" method="GET" class="mb-3">
+            <label for="depCode" class="form-label">Seleccione un departamento:</label>
+            <select name="depCode" id="depCode" class="form-select" onchange="this.form.submit()">
+                <option value="">Todos</option>
+                <% departments.forEach(dep => { %>
+                    <option value="<%= dep.code %>" <%= depCode === dep.code ? "selected" : "" %>>
+                        <%= dep.name %>
+                    </option>
+                <% }) %>
+            </select>
+        </form>
+
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h2>Municipios</h2>
+            </div>
+            <div class="card-body table-container"><!-- aquí le pongo la clase con scroll -->
+                <% if (towns.length > 0) { %>
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Código Municipio</th>
+                                <th>Nombre Municipio</th>
+                                <th>Código Dep.</th>
+                                <th>Nombre Departamento</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% towns.forEach(town => {
+                                const depCodeTown = town.department ? town.department : town.code.substring(0, 2);
+                                const dep = departments.find(d => d.code === depCodeTown);
+                            %>
+                                <tr>
+                                    <td><%= town.code %></td>
+                                    <td><%= town.name %></td>
+                                    <td><%= dep ? dep.code : "??" %></td>
+                                    <td><%= dep ? dep.name : "No asignado" %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } else { %>
+                    <p>No hay municipios para este departamento</p>
+                <% } %>
+            </div>
+        </div>
+
+        <footer class="mt-4 text-center">
+            <a href="/test" class="btn btn-secondary">Volver al inicio</a>
+        </footer>
+    </div>
+</body>
+</html>
