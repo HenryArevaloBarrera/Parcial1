@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <%- include("templates/header") %>
+</head>
+<body>
+    <div class="container">
+        <div class="card mt-4">
+            <div class="card-header bg-primary text-white">
+                <h1>Agregar Nuevo Municipio</h1>
+            </div>
+            <div class="card-body">
+                <form action="/test/towns/new" method="POST">
+                    <div class="mb-3">
+                        <label for="code" class="form-label">Código Municipio</label>
+                        <input type="text" class="form-control" name="code" id="code" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Nombre Municipio</label>
+                        <input type="text" class="form-control" name="name" id="name" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="department" class="form-label">Departamento</label>
+                        <select name="department" id="department" class="form-select" required>
+                            <option value="">Seleccione un departamento</option>
+                            <% departments.forEach(dep => { %>
+                                <option value="<%= dep.code %>"><%= dep.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Guardar Municipio</button>
+                    <a href="/test" class="btn btn-secondary">Cancelar</a>
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <%- include("templates/footer") %>
+    </footer>
+</body>
+</html>
